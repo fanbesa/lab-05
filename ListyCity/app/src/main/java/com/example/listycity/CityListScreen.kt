@@ -1,5 +1,6 @@
 package com.example.listycity
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,6 +34,7 @@ fun CityListScreen(
     cities: List<City>,
     onAddCity: (City) -> Unit,
     onUpdateCity: (City, City) -> Unit,
+    onDeleteCity: (City) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var newCityName by remember { mutableStateOf("") }
@@ -40,6 +43,9 @@ fun CityListScreen(
     var selectedCity by remember { mutableStateOf<City?>(null) }
     var editedCityName by remember { mutableStateOf("") }
     var editedProvinceName by remember { mutableStateOf("") }
+    var isDeletingCities by remember { mutableStateOf(false) }
+    var deleteSymbol by remember { mutableStateOf("Delete") }
+    var deleteButtonColor by remember { mutableStateOf(Color.Red) }
 
     Column(modifier = modifier.fillMaxSize()) {
         Row(
@@ -59,7 +65,29 @@ fun CityListScreen(
             ) {
                 Text("+")
             }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            FloatingActionButton(
+                modifier = Modifier.padding(16.dp),
+                containerColor = deleteButtonColor,
+                onClick = {
+                    isDeletingCities = !isDeletingCities
+                    if (isDeletingCities) {
+                        deleteButtonColor = Color.Green
+                        deleteSymbol = "Done"
+                    } else {
+                        deleteButtonColor = Color.Red
+                        deleteSymbol = "Delete"
+                    }
+                }
+            ) {
+                Text(
+                    text = deleteSymbol
+                )
+            }
         }
+
         if (showAddCityFields) {
             Row(
                 modifier = Modifier
@@ -93,7 +121,6 @@ fun CityListScreen(
                                     province = newProvinceName
                                 )
                             )
-
                             newCityName = ""
                             newProvinceName = ""
                             showAddCityFields = false
@@ -164,8 +191,14 @@ fun CityListScreen(
                         newCityName = ""
                         newProvinceName = ""
                         selectedCity = city
-                        editedCityName = city.name
-                        editedProvinceName = city.province
+
+                        if (isDeletingCities) {
+                            onDeleteCity(city)
+                            selectedCity = null
+                        } else {
+                            editedCityName = city.name
+                            editedProvinceName = city.province
+                        }
                     }
                 )
                 if (index < cities.lastIndex) {
@@ -213,7 +246,8 @@ fun CityListScreenPreview() {
                 City("Calgary", "AB")
             ),
             onAddCity = {},
-            onUpdateCity = { _, _ -> }
+            onUpdateCity = { _, _ -> },
+            onDeleteCity = {}
         )
     }
 }
