@@ -8,7 +8,7 @@
 ## References and Resources
 
 Kotlin Documentation \
-https://kotlinlang.org/docs/null-safety.html#safe-casts \
+https://kotlinlang.org/docs/null-safety.html#safe-casts 
 
 Firebase Documentation \
 https://firebase.google.com/docs/firestore/enterprise/add-data-core#kotlin_7 
