@@ -7,7 +7,7 @@
 
 ## References and Resources
 
-List any resources used here, or simply put `N/A` if not applicable.
+List any resources used here, or simply put `N/A` if not applicable. \
 Kotlin Documentation \
 https://kotlinlang.org/docs/null-safety.html#safe-casts \
 Firebase Documentation \
