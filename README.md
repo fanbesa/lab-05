@@ -11,7 +11,7 @@ List any resources used here, or simply put `N/A` if not applicable.
 Kotlin Documentation \
 https://kotlinlang.org/docs/null-safety.html#safe-casts \
 Firebase Documentation \
-https://firebase.google.com/docs/firestore/enterprise/add-data-core#kotlin_7 \
+https://firebase.google.com/docs/firestore/enterprise/add-data-core#kotlin_7 
 
 
 ## Verbal Collaboration
